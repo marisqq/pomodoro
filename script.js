@@ -105,3 +105,6 @@ resetButton.addEventListener('click', resetTimer);
 
 // 🎯 Initialize Timer
 updateDisplay();
+
+
+

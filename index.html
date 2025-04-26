@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pomodoro Timer with Lofi Stream</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main>
+    <h1>Pomodoro Timer</h1>
+
+    <div id="settings">
+      <label>Work Time (minutes): <input type="number" id="work-time" value="25"></label>
+      <label>Break Time (minutes): <input type="number" id="break-time" value="5"></label>
+    </div>
+
+    <div id="timer">25:00</div>
+
+    <div id="controls">
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+
+    <button id="dark-mode-toggle">🌙 / ☀️ Toggle Dark / Light Mode</button>
+
+    <div id="video-container">
+      <iframe
+        id="lofi-stream"
+        src="https://www.youtube.com/embed/jfKfPfyJRdk?enablejsapi=1&origin=http://localhost"
+        frameborder="0"
+        allow="autoplay"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <footer>
+      <p>Made by <a href="https://x.com/Purr0xide" target="_blank">@Purr0xide</a></p>
+    </footer>
+
+  </main>
+
+  <audio id="chime" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

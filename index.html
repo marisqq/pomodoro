@@ -12,28 +12,44 @@
     <h1>Pomodoro Timer</h1>
 
     <div id="settings">
-      <label>Work Time (minutes): <input type="number" id="work-time" value="25"></label>
-      <label>Break Time (minutes): <input type="number" id="break-time" value="5"></label>
-    </div>
+      <div class="time-picker">
+        <label>Work Time (minutes):</label>
+        <div class="input-group">
+          <button class="decrease" data-target="work-time">-</button>
+          <input type="number" id="work-time" value="25" min="1">
+          <button class="increase" data-target="work-time">+</button>
+        </div>
+      </div>
 
+      <div class="time-picker">
+        <label>Break Time (minutes):</label>
+        <div class="input-group">
+          <button class="decrease" data-target="break-time">-</button>
+          <input type="number" id="break-time" value="5" min="1">
+          <button class="increase" data-target="break-time">+</button>
+        </div>
+      </div>
+    </div>
+    
     <div id="timer">25:00</div>
 
     <div id="controls">
       <button id="start">Start</button>
-      <button id="pause">Pause</button>
       <button id="reset">Reset</button>
     </div>
 
     <button id="dark-mode-toggle">🌙 / ☀️ Toggle Dark / Light Mode</button>
 
     <div id="video-container">
-      <iframe
-        id="lofi-stream"
-        src="https://www.youtube.com/embed/jfKfPfyJRdk?enablejsapi=1&origin=http://localhost"
-        frameborder="0"
-        allow="autoplay"
-        allowfullscreen
-      ></iframe>
+      <div id="video-container">
+        <iframe
+          id="lofi-stream"
+          src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1&enablejsapi=1&playsinline=1"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
 
     <footer>

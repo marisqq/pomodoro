@@ -5,28 +5,28 @@ let isWorkSession = true;
 
 const timerDisplay = document.getElementById('timer');
 const startButton = document.getElementById('start');
-const pauseButton = document.getElementById('pause');
 const resetButton = document.getElementById('reset');
 const workInput = document.getElementById('work-time');
 const breakInput = document.getElementById('break-time');
 const chime = document.getElementById('chime');
 const lofiStream = document.getElementById('lofi-stream');
 
-// 🎯 Update Timer Display
 function updateDisplay() {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// 🎯 Start Timer
-function startTimer() {
+function startPauseTimer() {
   if (!isRunning) {
     if (!timeLeft || timeLeft <= 0) {
       timeLeft = (isWorkSession ? parseInt(workInput.value) : parseInt(breakInput.value)) * 60;
     }
     updateDisplay();
     isRunning = true;
+    startButton.textContent = 'Pause';
+    startButton.style.background = '#FFC107'; // Change to yellow
+    startButton.style.color = 'black';
     playVideo();
 
     timer = setInterval(() => {
@@ -39,32 +39,37 @@ function startTimer() {
         stopVideo();
 
         isWorkSession = !isWorkSession;
+        startButton.textContent = 'Start';
+        startButton.style.background = '#4CAF50'; // Reset back to green
+        startButton.style.color = 'white';
         setTimeout(() => {
-          startTimer();
+          startPauseTimer();
         }, 3000);
       }
     }, 1000);
+  } else {
+    clearInterval(timer);
+    isRunning = false;
+    startButton.textContent = 'Start';
+    startButton.style.background = '#4CAF50'; // Reset back to green
+    startButton.style.color = 'white';
+    stopVideo();
   }
 }
 
-// 🎯 Pause Timer
-function pauseTimer() {
-  clearInterval(timer);
-  isRunning = false;
-  stopVideo();
-}
-
-// 🎯 Reset Timer
 function resetTimer() {
   clearInterval(timer);
   isRunning = false;
   isWorkSession = true;
   timeLeft = parseInt(workInput.value) * 60;
   updateDisplay();
+  startButton.textContent = 'Start';
+  startButton.style.background = '#4CAF50'; // Reset back to green
+  startButton.style.color = 'white';
   stopVideo();
 }
 
-// 🎯 Update Work/Break Time live
+// 🎯 Update live time input
 workInput.addEventListener('input', () => {
   if (!isRunning && isWorkSession) {
     timeLeft = parseInt(workInput.value) * 60;
@@ -86,25 +91,27 @@ darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('light-mode');
 });
 
-// Set default mode to Light
+// Set default to dark mode
 document.body.classList.add('dark-mode');
 
 // 🎯 Play/Pause YouTube Stream
+
 function playVideo() {
-  lofiStream.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+  // First unmute, then play
+  lofiStream.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+  setTimeout(() => {
+    lofiStream.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+  }, 100);
 }
+
 
 function stopVideo() {
   lofiStream.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
 }
 
 // 🎯 Attach button listeners
-startButton.addEventListener('click', startTimer);
-pauseButton.addEventListener('click', pauseTimer);
+startButton.addEventListener('click', startPauseTimer);
 resetButton.addEventListener('click', resetTimer);
 
 // 🎯 Initialize Timer
 updateDisplay();
-
-
-

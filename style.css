@@ -28,13 +28,114 @@ main {
   padding: 20px;
 }
 
-#settings {
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox: remove spinner arrows */
+  appearance: textfield; /* Standard */
+  width: 70px;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
+
+input[type="number"]:focus {
+  border-color: #FFC107; /* Highlight when clicked */
+  outline: none;
+  background: #333;
+}
+
+/* Remove the up/down arrows in Chrome/Safari */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#start:hover {
+  background: #66bb6a;
+}
+#pause:hover {
+  background: #ffca28;
+}
+#reset:hover {
+  background: #e53935;
+}
+/* Timer settings layout */
+#settings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+/* Group input with buttons */
+.time-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Inputs */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  width: 70px;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+input[type="number"]:focus {
+  border-color: #FFC107;
+  outline: none;
+  background: #333;
+}
+
+/* Remove default arrows Chrome/Safari */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Increase/Decrease buttons */
+button.increase, button.decrease {
+  background: #444;
+  color: #fff;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button.increase:hover, button.decrease:hover {
+  background: #666;
+}
+
+
 
 #settings label {
   display: flex;
@@ -43,8 +144,14 @@ main {
 }
 
 #timer {
-  font-size: 60px;
+  font-size: 80px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background: linear-gradient(135deg, #ff893b, #ff7707);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   word-wrap: break-word;
   text-align: center;
 }
@@ -54,21 +161,41 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 #controls button {
-  font-size: 18px;
-  padding: 10px 20px;
+  font-size: 20px;
+  padding: 15px 30px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
 }
 
-#start { background: #4CAF50; color: white; }
-#pause { background: #FFC107; color: white; }
-#reset { background: #F44336; color: white; }
+/* Specific Start Button */
+#start {
+  background: #4CAF50;
+  color: white;
+}
+
+#start:hover {
+  background: #66bb6a;
+}
+
+/* Specific Reset Button */
+#reset {
+  background: #F44336;
+  color: white;
+}
+
+#reset:hover {
+  background: #e57373;
+}
+
+
 
 #dark-mode-toggle {
   font-size: 18px;
@@ -126,11 +253,7 @@ footer a:hover {
     font-size: 40px;
   }
 
-  #controls button {
-    width: 100%;
-    font-size: 16px;
-  }
-
+ 
   #settings label {
     flex-direction: column;
     font-size: 16px;
